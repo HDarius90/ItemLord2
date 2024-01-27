@@ -1,4 +1,23 @@
 import { initPocket, generateItemsForSale } from "../utils";
+import {
+  ADD_CASH,
+  SELECT_ITEM,
+  SET_INPUT_VALUE,
+  SET_TRADE_TYPE,
+  STAY_DAY,
+  TOGGLE_OVERLAY,
+  UPDATE_POCKET,
+} from "./ActionTypes";
+import { addCash, selectItem, setInputValue, setTradeType, stayDay, toggleOverlay, updatePocket } from "./actions";
+
+type ActionType =
+  | ReturnType<typeof stayDay>
+  | ReturnType<typeof addCash>
+  | ReturnType<typeof updatePocket>
+  | ReturnType<typeof selectItem>
+  | ReturnType<typeof toggleOverlay>
+  | ReturnType<typeof setTradeType>
+  | ReturnType<typeof setInputValue>;
 
 // reducers.js
 const initialState = {
@@ -28,39 +47,39 @@ const initialState = {
   inputValue: 0,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
-    case "STAY_DAY":
+    case STAY_DAY:
       return {
         ...state,
         stats: { ...state.stats, day: ++state.stats.day },
       };
-    case "ADD_CASH":
+    case ADD_CASH:
       return {
         ...state,
         stats: { ...state.stats, cash: state.stats.cash + action.payload },
       };
-    case "UPDATE_POCKET":
+    case UPDATE_POCKET:
       return {
         ...state,
         pocket: action.payload,
       };
-    case "SELECT_ITEM":
+    case SELECT_ITEM:
       return {
         ...state,
         selectedItem: action.payload,
       };
-    case "TOOGLE_OVERLAY":
+    case TOGGLE_OVERLAY:
       return {
         ...state,
         isOverlayOpen: !state.isOverlayOpen,
       };
-    case "SET_TRADE_TYPE":
+    case SET_TRADE_TYPE:
       return {
         ...state,
         tradeType: action.payload,
       };
-    case "SET_INPUT_VALUE":
+    case SET_INPUT_VALUE:
       return {
         ...state,
         inputValue: action.payload,

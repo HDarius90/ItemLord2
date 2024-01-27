@@ -8,3 +8,4 @@ export type Notification = {
   color: string;
   text: string;
 };
+
