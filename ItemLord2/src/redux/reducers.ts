@@ -1,3 +1,4 @@
+import { Item } from "../types";
 import { initPocket, generateItemsForSale } from "../utils";
 import {
   ADD_CASH,
@@ -8,7 +9,15 @@ import {
   TOGGLE_OVERLAY,
   UPDATE_POCKET,
 } from "./ActionTypes";
-import { addCash, selectItem, setInputValue, setTradeType, stayDay, toggleOverlay, updatePocket } from "./actions";
+import {
+  addCash,
+  selectItem,
+  setInputValue,
+  setTradeType,
+  stayDay,
+  toggleOverlay,
+  updatePocket,
+} from "./actions";
 
 type ActionType =
   | ReturnType<typeof stayDay>
@@ -19,8 +28,31 @@ type ActionType =
   | ReturnType<typeof setTradeType>
   | ReturnType<typeof setInputValue>;
 
+export interface AppState {
+  stats: {
+    location: string;
+    health: number;
+    day: number;
+    lastDay: number;
+    rank: string;
+    cash: number;
+    bank: number;
+    debt: number;
+  };
+  pocket: Item[]; // Assuming Item is a type you have defined
+  market: {
+    forSale: Item[];
+    yesterdaysForSale: Item[]; // Assuming Item is a type you have defined
+  };
+  selectedItem: Item;
+  tradeType: string;
+  pocketSize: number;
+  isOverlayOpen: boolean;
+  inputValue: number;
+}
+
 // reducers.js
-const initialState = {
+const initialState: AppState = {
   stats: {
     location: "Toronto",
     health: 100,

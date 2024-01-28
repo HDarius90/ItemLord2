@@ -1,5 +1,6 @@
 import "./App.css";
 import InfoPanel from "./components/InfoPanel";
+import Stats from "./components/Stats";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
               <button>Fly Away</button>
             </div>
 
-            <div className="Stats" />
+            <Stats />
           </section>
           <section>
             <div className="Market" />
