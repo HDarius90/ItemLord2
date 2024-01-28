@@ -5,38 +5,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { AppState } from "../redux/reducers";
+import { getAllItemsQty } from "../utils";
 import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../redux/reducers";
 import { selectItem, setTradeType, toggleOverlay } from "../redux/actions";
 
-export default function Market() {
+export default function Pocket() {
   const dispatch = useDispatch();
-  const market = useSelector((state: AppState) => state.market);
+  const pocket = useSelector((state: AppState) => state.pocket);
+  const pocketSize = useSelector((state: AppState) => state.pocketSize);
 
   const color = { color: "white", backgroundColor: "black" };
 
-  const getYesterdaysItemPrice = (itemName: string): number | null => {
-    const yesterDayItem = market.yesterdaysForSale.find(
-      (item) => item.name === itemName
-    );
-    return yesterDayItem ? yesterDayItem.price : null;
-  };
-
   return (
-    <div style={{ height: "23vw" }}>
-      <h3 style={{ textAlign: "center" }}>The Market</h3>
+    <div>
+      <h3 style={{ textAlign: "center" }}>
+        Your Pants Pocket ({getAllItemsQty(pocket)}/{pocketSize})
+      </h3>
       <TableContainer
         component={Paper}
         sx={{
           marginBottom: "5rem",
           ...color,
-          maxHeight: 350,
+          maxHeight: 230,
         }}
       >
-        <Table stickyHeader aria-label="simple table">
-          <TableHead sx={{ position: "stickey" }}>
+        <Table stickyHeader size="small" aria-label="a dense table">
+          <TableHead>
             <TableRow>
               <TableCell sx={{ backgroundColor: "white" }}>Name</TableCell>
               <TableCell align="right" sx={{ backgroundColor: "white" }}>
@@ -48,10 +43,10 @@ export default function Market() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {market.forSale.map((item) => (
+            {pocket.map((item) => (
               <TableRow
                 onClick={() => {
-                  dispatch(setTradeType("buy"));
+                  dispatch(setTradeType("sell"));
                   dispatch(selectItem(item));
                   dispatch(toggleOverlay());
                 }}
@@ -61,23 +56,7 @@ export default function Market() {
                   cursor: "pointer",
                 }}
               >
-                <TableCell
-                  component="th"
-                  scope="row"
-                  sx={{ ...color, minWidth: "80px", lineHeight: 2.23 }}
-                >
-                  {market.yesterdaysForSale &&
-                  getYesterdaysItemPrice(item.name) !== null ? (
-                    item.price > getYesterdaysItemPrice(item.name)! ? (
-                      <ArrowUpwardIcon sx={{ color: "green", fontSize: 20 }} />
-                    ) : item.price < getYesterdaysItemPrice(item.name)! ? (
-                      <ArrowDownwardIcon sx={{ color: "red", fontSize: 20 }} />
-                    ) : (
-                      "    "
-                    )
-                  ) : (
-                    "    "
-                  )}
+                <TableCell component="th" scope="row" sx={{ ...color }}>
                   {item.name}
                 </TableCell>
                 <TableCell align="right" sx={{ ...color }}>

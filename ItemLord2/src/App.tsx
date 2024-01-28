@@ -1,5 +1,7 @@
 import "./App.css";
 import InfoPanel from "./components/InfoPanel";
+import Market from "./components/Market";
+import Pocket from "./components/Pocket";
 import Stats from "./components/Stats";
 
 function App() {
@@ -21,7 +23,8 @@ function App() {
             <Stats />
           </section>
           <section>
-            <div className="Market" />
+            <Market />
+            <Pocket />
           </section>
         </div>
       </div>
