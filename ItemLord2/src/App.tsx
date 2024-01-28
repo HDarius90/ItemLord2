@@ -1,13 +1,13 @@
 import "./App.css";
+import InfoPanel from "./components/InfoPanel";
 
 function App() {
-
   return (
     <>
       <div className="App">
         <div className="mainCont">
           <section>
-            <div className="InfoPanel" />
+            <InfoPanel />
 
             <div className="btnGroup">
               <button>Shipping</button>

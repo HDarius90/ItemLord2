@@ -38,8 +38,8 @@ const initialState = {
   },
   selectedItem: {
     name: "",
-    price: "",
-    qty: "",
+    qty: 0,
+    price: 0,
   },
   tradeType: "",
   pocketSize: 20,
