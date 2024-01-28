@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { AppState } from "../redux/reducers";
 import ItemTable from "./ItemTable";
+import Overlay from "./Overlay";
 
 export default function Market() {
   const market = useSelector((state: AppState) => state.market);
@@ -14,6 +15,7 @@ export default function Market() {
         size="medium"
         ariaLabel="simple table"
       />
+      <Overlay />
     </div>
   );
 }

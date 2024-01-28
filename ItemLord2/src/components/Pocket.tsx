@@ -2,6 +2,7 @@ import { getAllItemsQty } from "../utils";
 import { useSelector } from "react-redux";
 import { AppState } from "../redux/reducers";
 import ItemTable from "./ItemTable";
+import Overlay from "./Overlay";
 
 export default function Pocket() {
   const pocket = useSelector((state: AppState) => state.pocket);
@@ -18,6 +19,7 @@ export default function Pocket() {
         size="small"
         ariaLabel="a dense table"
       />
+      <Overlay />
     </div>
   );
 }
