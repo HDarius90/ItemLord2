@@ -10,7 +10,7 @@ import {
   SET_TRADE_TYPE,
   STAY_DAY,
   TOGGLE_OVERLAY,
-  UPDATE_POCKET,
+  UPDATE_MARKET,
 } from "./ActionTypes";
 
 // actions.js
@@ -43,9 +43,8 @@ export const addItemToMarket = (item: Item, qty: number) => ({
   payload: { item, qty },
 });
 
-export const updatePocket = (pocket: Item[]) => ({
-  type: UPDATE_POCKET,
-  payload: pocket,
+export const updateMarket = () => ({
+  type: UPDATE_MARKET,
 });
 
 export const selectItem = (item: Item) => ({

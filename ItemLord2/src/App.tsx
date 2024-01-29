@@ -1,10 +1,19 @@
+import { useDispatch } from "react-redux";
 import "./App.css";
 import InfoPanel from "./components/InfoPanel";
 import Market from "./components/Market";
 import Pocket from "./components/Pocket";
 import Stats from "./components/Stats";
+import { stayDay, updateMarket } from "./redux/actions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const handleStay = () => {
+    dispatch(stayDay());
+    dispatch(updateMarket());
+  };
+
   return (
     <>
       <div className="App">
@@ -16,7 +25,7 @@ function App() {
               <button>Shipping</button>
               <button>Finances</button>
               <button>Shopping</button>
-              <button>Stay Here</button>
+              <button onClick={handleStay}>Stay Here</button>
               <button>Fly Away</button>
             </div>
 

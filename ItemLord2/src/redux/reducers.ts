@@ -11,7 +11,7 @@ import {
   SET_TRADE_TYPE,
   STAY_DAY,
   TOGGLE_OVERLAY,
-  UPDATE_POCKET,
+  UPDATE_MARKET,
 } from "./ActionTypes";
 import {
   addCash,
@@ -20,7 +20,7 @@ import {
   setTradeType,
   stayDay,
   toggleOverlay,
-  updatePocket,
+  updateMarket,
   removeItemFromPocket,
   removeItemFromMarket,
   addItemToPocket,
@@ -30,7 +30,7 @@ import {
 type ActionType =
   | ReturnType<typeof stayDay>
   | ReturnType<typeof addCash>
-  | ReturnType<typeof updatePocket>
+  | ReturnType<typeof updateMarket>
   | ReturnType<typeof selectItem>
   | ReturnType<typeof toggleOverlay>
   | ReturnType<typeof setTradeType>
@@ -211,10 +211,13 @@ const reducer = (state = initialState, action: ActionType) => {
           ),
         },
       };
-    case UPDATE_POCKET:
+    case UPDATE_MARKET:
       return {
         ...state,
-        pocket: action.payload,
+        market: {
+          yesterdaysForSale: state.market.forSale,
+          forSale: generateItemsForSale(),
+        }
       };
     case SELECT_ITEM:
       return {
