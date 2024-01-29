@@ -14,7 +14,7 @@ export default function Pocket() {
     <div>
       <ItemTable
         items={pocket}
-        tradeType={"buy"}
+        tradeType={"sell"}
         title={tableTitle}
         size="small"
         ariaLabel="a dense table"

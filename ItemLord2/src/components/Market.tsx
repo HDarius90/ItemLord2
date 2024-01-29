@@ -10,7 +10,7 @@ export default function Market() {
     <div>
       <ItemTable
         items={market.forSale}
-        tradeType={"sell"}
+        tradeType={"buy"}
         title={tableTitle}
         size="medium"
         ariaLabel="simple table"

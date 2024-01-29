@@ -6,7 +6,7 @@ export const initPocket = (): Item[] => [
   { name: allItemsNames[1], qty: 2, price: 100 },
   { name: allItemsNames[2], qty: 1, price: 10 },
   { name: allItemsNames[3], qty: 3, price: 3500 },
-  { name: allItemsNames[4], qty: 2, price: 5 },
+  { name: "Gold", qty: 2, price: 1000 },
 ];
 
 export const generateItemsForSale = (): Item[] => {

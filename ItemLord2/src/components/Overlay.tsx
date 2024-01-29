@@ -21,6 +21,7 @@ export default function Overlay() {
 
   const handleClose = () => {
     dispatch(toggleOverlay());
+    dispatch(setInputValue(0));
   };
 
   const getMaxToTrade = (): number => {
@@ -48,9 +49,9 @@ export default function Overlay() {
     return true;
   };
 
-  const isOnMarket = () => {
-    return !!market.forSale.filter((item) => item.name === selectedItem.name);
-  };
+  const itemInMarket = market.forSale.find(
+    (item) => item.name === selectedItem.name
+  );
 
   return (
     <>
@@ -61,17 +62,17 @@ export default function Overlay() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title" sx={{ color: "black" }}>
-          {isOnMarket() ? capitalizeFirstLetter(tradeType) : "Dump"}
+          {itemInMarket ? capitalizeFirstLetter(tradeType) : "Dump"}
           ing {selectedItem.name}
         </DialogTitle>
         <DialogContent>
-          {isOnMarket() ? (
+          {itemInMarket ? (
             <>
               <DialogContentText id="alert-dialog-description">
                 {selectedItem.name} is currently{" "}
-                {tradeType === "sell"
-                  ? `being bought for ${selectedItem.price}`
-                  : `selling for $${selectedItem.price}`}
+                {tradeType === "buy"
+                  ? `selling for $${selectedItem.price}`
+                  : `being bought for ${itemInMarket.price}`}
               </DialogContentText>
               <DialogContentText id="alert-dialog-description2">
                 {tradeType === "sell"
@@ -84,13 +85,15 @@ export default function Overlay() {
               {" "}
               <DialogContentText id="alert-dialog-description">
                 The market has no use for {selectedItem.name} today, if you
-                really need to get it off your hand, pumping it is an
-                option...is currently{" "}
+                really need to get it off your hand, pumping it is an option...
               </DialogContentText>
               <DialogContentText id="alert-dialog-description2">
                 {`You have ${getMaxToTrade()} units to dump`}
               </DialogContentText>
-              <DialogContentText id="alert-dialog-description2">
+              <DialogContentText
+                sx={{ marginTop: "1rem" }}
+                id="alert-dialog-description2"
+              >
                 How mutch do you wish to dump?
               </DialogContentText>
             </>
@@ -105,16 +108,13 @@ export default function Overlay() {
             fullWidth
             variant="standard"
             value={inputValue}
-            placeholder="0"
             onChange={handleInputChange}
           />
         </DialogContent>
         <DialogActions>
-          {isOnMarket() ? (
-            <Button disabled={isValid()}>{tradeType}</Button>
-          ) : (
-            <Button>Dump</Button>
-          )}
+          <Button disabled={isValid()}>
+            {itemInMarket ? tradeType : "Dump"}
+          </Button>
           <Button onClick={handleClose} autoFocus>
             Close
           </Button>
