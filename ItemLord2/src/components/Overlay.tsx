@@ -6,7 +6,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
-import { setInputValue, toggleOverlay } from "../redux/actions";
+import {
+  addCash,
+  removeItemFromPocket,
+  setInputValue,
+  toggleOverlay,
+} from "../redux/actions";
 import { AppState } from "../redux/reducers";
 import { capitalizeFirstLetter } from "../utils";
 
@@ -19,10 +24,9 @@ export default function Overlay() {
   const isOverlayOpen = useSelector((state: AppState) => state.isOverlayOpen);
   const dispatch = useDispatch();
 
-  const handleClose = () => {
-    dispatch(toggleOverlay());
-    dispatch(setInputValue(0));
-  };
+  const itemInMarket = market.forSale.find(
+    (item) => item.name === selectedItem.name
+  );
 
   const getMaxToTrade = (): number => {
     if (tradeType === "buy") {
@@ -35,11 +39,36 @@ export default function Overlay() {
     return selectedItem.qty;
   };
 
+  const handleClose = () => {
+    dispatch(toggleOverlay());
+    dispatch(setInputValue(0));
+  };
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const inputValue = parseInt(event.target.value);
     dispatch(setInputValue(inputValue));
+  };
+
+  const handleDump = () => {
+    dispatch(removeItemFromPocket(selectedItem.name, inputValue));
+    dispatch(toggleOverlay());
+    dispatch(setInputValue(0));
+  };
+
+  const handleSell = () => {
+    dispatch(removeItemFromPocket(selectedItem.name, inputValue));
+    dispatch(addCash(inputValue * itemInMarket!.price));
+    dispatch(toggleOverlay());
+    dispatch(setInputValue(0));
+  };
+
+  const handleBuy = () => {
+    dispatch(removeItemFromPocket(selectedItem.name, inputValue));
+    dispatch(addCash(inputValue * itemInMarket!.price));
+    dispatch(toggleOverlay());
+    dispatch(setInputValue(0));
   };
 
   const isValid = () => {
@@ -48,10 +77,6 @@ export default function Overlay() {
     }
     return true;
   };
-
-  const itemInMarket = market.forSale.find(
-    (item) => item.name === selectedItem.name
-  );
 
   return (
     <>
@@ -112,9 +137,22 @@ export default function Overlay() {
           />
         </DialogContent>
         <DialogActions>
-          <Button disabled={isValid()}>
-            {itemInMarket ? tradeType : "Dump"}
-          </Button>
+          {itemInMarket ? (
+            tradeType === "buy" ? (
+              <Button onClick={handleBuy} disabled={isValid()}>
+                Buy
+              </Button>
+            ) : (
+              <Button onClick={handleSell} disabled={isValid()}>
+                Sell
+              </Button>
+            )
+          ) : (
+            <Button onClick={handleDump} disabled={isValid()}>
+              Dump
+            </Button>
+          )}
+
           <Button onClick={handleClose} autoFocus>
             Close
           </Button>

@@ -5,3 +5,4 @@ export const SELECT_ITEM = "SELECT_ITEM" as const;
 export const TOGGLE_OVERLAY = "TOGGLE_OVERLAY" as const;
 export const SET_TRADE_TYPE = "SET_TRADE_TYPE" as const;
 export const SET_INPUT_VALUE = "SET_INPUT_VALUE" as const;
+export const REMOVE_ITEM_FROM_POCKET = "REMOVE_ITEM_FROM_POCKET" as const;

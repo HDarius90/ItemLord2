@@ -2,6 +2,7 @@ import { Item } from "../types";
 import { initPocket, generateItemsForSale } from "../utils";
 import {
   ADD_CASH,
+  REMOVE_ITEM_FROM_POCKET,
   SELECT_ITEM,
   SET_INPUT_VALUE,
   SET_TRADE_TYPE,
@@ -17,6 +18,7 @@ import {
   stayDay,
   toggleOverlay,
   updatePocket,
+  removeItemFromPocket,
 } from "./actions";
 
 type ActionType =
@@ -26,7 +28,8 @@ type ActionType =
   | ReturnType<typeof selectItem>
   | ReturnType<typeof toggleOverlay>
   | ReturnType<typeof setTradeType>
-  | ReturnType<typeof setInputValue>;
+  | ReturnType<typeof setInputValue>
+  | ReturnType<typeof removeItemFromPocket>;
 
 export interface AppState {
   stats: {
@@ -49,6 +52,11 @@ export interface AppState {
   pocketSize: number;
   isOverlayOpen: boolean;
   inputValue: number;
+}
+
+interface SearchItem {
+  name: string;
+  qty: number;
 }
 
 // reducers.js
@@ -79,6 +87,21 @@ const initialState: AppState = {
   inputValue: 0,
 };
 
+function removeQty(arr: Item[], searchItem: SearchItem): Item[] {
+  const updatedArray = arr.map((item) => {
+    if (item.name === searchItem.name) {
+      const updatedPocket = item.qty - searchItem.qty;
+      return {
+        ...item,
+        qty: updatedPocket >= 0 ? updatedPocket : 0,
+      };
+    }
+    return item;
+  });
+
+  return updatedArray.filter((item) => item.qty > 0);
+}
+
 const reducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case STAY_DAY:
@@ -90,6 +113,11 @@ const reducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         stats: { ...state.stats, cash: state.stats.cash + action.payload },
+      };
+    case REMOVE_ITEM_FROM_POCKET:
+      return {
+        ...state,
+        pocket: removeQty(state.pocket, action.payload),
       };
     case UPDATE_POCKET:
       return {

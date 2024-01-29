@@ -1,6 +1,7 @@
 import { Item } from "../types";
 import {
   ADD_CASH,
+  REMOVE_ITEM_FROM_POCKET,
   SELECT_ITEM,
   SET_INPUT_VALUE,
   SET_TRADE_TYPE,
@@ -17,6 +18,11 @@ export const stayDay = () => ({
 export const addCash = (amount: number) => ({
   type: ADD_CASH,
   payload: amount,
+});
+
+export const removeItemFromPocket = (name: string, qty: number) => ({
+  type: REMOVE_ITEM_FROM_POCKET,
+  payload: { name, qty },
 });
 
 export const updatePocket = (pocket: Item[]) => ({
