@@ -2,6 +2,9 @@ import { Item } from "../types";
 import {
   ADD_CASH,
   REMOVE_ITEM_FROM_POCKET,
+  REMOVE_ITEM_FROM_MARKET,
+  ADD_ITEM_TO_POCKET,
+  ADD_ITEM_TO_MARKET,
   SELECT_ITEM,
   SET_INPUT_VALUE,
   SET_TRADE_TYPE,
@@ -23,6 +26,21 @@ export const addCash = (amount: number) => ({
 export const removeItemFromPocket = (name: string, qty: number) => ({
   type: REMOVE_ITEM_FROM_POCKET,
   payload: { name, qty },
+});
+
+export const removeItemFromMarket = (name: string, qty: number) => ({
+  type: REMOVE_ITEM_FROM_MARKET,
+  payload: { name, qty },
+});
+
+export const addItemToPocket = (item: Item, qty: number) => ({
+  type: ADD_ITEM_TO_POCKET,
+  payload: { item, qty },
+});
+
+export const addItemToMarket = (item: Item, qty: number) => ({
+  type: ADD_ITEM_TO_MARKET,
+  payload: { item, qty },
 });
 
 export const updatePocket = (pocket: Item[]) => ({

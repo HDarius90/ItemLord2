@@ -3,6 +3,9 @@ import { initPocket, generateItemsForSale } from "../utils";
 import {
   ADD_CASH,
   REMOVE_ITEM_FROM_POCKET,
+  REMOVE_ITEM_FROM_MARKET,
+  ADD_ITEM_TO_POCKET,
+  ADD_ITEM_TO_MARKET,
   SELECT_ITEM,
   SET_INPUT_VALUE,
   SET_TRADE_TYPE,
@@ -19,6 +22,9 @@ import {
   toggleOverlay,
   updatePocket,
   removeItemFromPocket,
+  removeItemFromMarket,
+  addItemToPocket,
+  addItemToMarket,
 } from "./actions";
 
 type ActionType =
@@ -29,7 +35,10 @@ type ActionType =
   | ReturnType<typeof toggleOverlay>
   | ReturnType<typeof setTradeType>
   | ReturnType<typeof setInputValue>
-  | ReturnType<typeof removeItemFromPocket>;
+  | ReturnType<typeof removeItemFromPocket>
+  | ReturnType<typeof removeItemFromMarket>
+  | ReturnType<typeof addItemToPocket>
+  | ReturnType<typeof addItemToMarket>;
 
 export interface AppState {
   stats: {
@@ -87,19 +96,73 @@ const initialState: AppState = {
   inputValue: 0,
 };
 
-function removeQty(arr: Item[], searchItem: SearchItem): Item[] {
-  const updatedArray = arr.map((item) => {
+function removeFromPocket(arr: Item[], searchItem: SearchItem): Item[] {
+  const updatedPocket = arr.map((item) => {
     if (item.name === searchItem.name) {
-      const updatedPocket = item.qty - searchItem.qty;
+      const updatedQty = item.qty - searchItem.qty;
       return {
         ...item,
-        qty: updatedPocket >= 0 ? updatedPocket : 0,
+        qty: updatedQty >= 0 ? updatedQty : 0,
       };
     }
     return item;
   });
 
-  return updatedArray.filter((item) => item.qty > 0);
+  return updatedPocket.filter((item) => item.qty > 0);
+}
+
+function removeFromMarket(arr: Item[], searchParams: SearchItem): Item[] {
+  const updatedMarket = arr.map((item) => {
+    if (item.name === searchParams.name) {
+      return {
+        ...item,
+        qty: item.qty - searchParams.qty,
+      };
+    }
+    return item;
+  });
+
+  return updatedMarket;
+}
+
+function updateOrAddItemToPocket(
+  items: Item[],
+  newItem: Item,
+  qtyToAdd: number
+): Item[] {
+  const updatedItems = [...items];
+  const index = updatedItems.findIndex((item) => item.name === newItem.name);
+
+  if (index !== -1) {
+    // If item with the same name exists, update its qty
+    updatedItems[index].qty += qtyToAdd;
+  } else {
+    // If no item with the same name exists, add a new item
+    const newItemToAdd: Item = {
+      name: newItem.name,
+      qty: qtyToAdd,
+      price: newItem.price,
+    };
+    updatedItems.push(newItemToAdd);
+  }
+
+  return updatedItems;
+}
+
+function updateItemsQtyInMarket(
+  items: Item[],
+  newItem: Item,
+  qtyToAdd: number
+): Item[] {
+  const updatedItems = [...items];
+  const index = updatedItems.findIndex((item) => item.name === newItem.name);
+
+  if (index !== -1) {
+    // If item with the same name exists, update its qty
+    updatedItems[index].qty += qtyToAdd;
+  }
+
+  return updatedItems;
 }
 
 const reducer = (state = initialState, action: ActionType) => {
@@ -117,7 +180,36 @@ const reducer = (state = initialState, action: ActionType) => {
     case REMOVE_ITEM_FROM_POCKET:
       return {
         ...state,
-        pocket: removeQty(state.pocket, action.payload),
+        pocket: removeFromPocket(state.pocket, action.payload),
+      };
+    case REMOVE_ITEM_FROM_MARKET:
+      return {
+        ...state,
+        market: {
+          ...state.market,
+          forSale: removeFromMarket(state.market.forSale, action.payload),
+        },
+      };
+    case ADD_ITEM_TO_POCKET:
+      return {
+        ...state,
+        pocket: updateOrAddItemToPocket(
+          state.pocket,
+          action.payload.item,
+          action.payload.qty
+        ),
+      };
+    case ADD_ITEM_TO_MARKET:
+      return {
+        ...state,
+        market: {
+          ...state.market,
+          forSale: updateItemsQtyInMarket(
+            state.market.forSale,
+            action.payload.item,
+            action.payload.qty
+          ),
+        },
       };
     case UPDATE_POCKET:
       return {

@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addCash,
   removeItemFromPocket,
+  removeItemFromMarket,
+  addItemToPocket,
+  addItemToMarket,
   setInputValue,
   toggleOverlay,
 } from "../redux/actions";
@@ -59,14 +62,16 @@ export default function Overlay() {
 
   const handleSell = () => {
     dispatch(removeItemFromPocket(selectedItem.name, inputValue));
+    dispatch(addItemToMarket(selectedItem, inputValue));
     dispatch(addCash(inputValue * itemInMarket!.price));
     dispatch(toggleOverlay());
     dispatch(setInputValue(0));
   };
 
   const handleBuy = () => {
-    dispatch(removeItemFromPocket(selectedItem.name, inputValue));
-    dispatch(addCash(inputValue * itemInMarket!.price));
+    dispatch(removeItemFromMarket(selectedItem.name, inputValue));
+    dispatch(addItemToPocket(selectedItem, inputValue));
+    dispatch(addCash(-inputValue * selectedItem.price));
     dispatch(toggleOverlay());
     dispatch(setInputValue(0));
   };
