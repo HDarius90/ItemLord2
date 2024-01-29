@@ -11,21 +11,23 @@ export const initPocket = (): Item[] => [
 
 export const generateItemsForSale = (): Item[] => {
   const itemsForSale: Item[] = [];
-  const randomLength = Math.floor(Math.random() * allItemsNames.length) + 5;
+  const availableItems = [...allItemsNames]; // Create a copy of the original array
+
+  const randomLength = Math.floor(Math.random() * availableItems.length) + 5;
 
   for (let i = 0; i < randomLength && i < 15; i++) {
-    const randomIndex = Math.floor(Math.random() * allItemsNames.length);
+    const randomIndex = Math.floor(Math.random() * availableItems.length);
     const randomQty = Math.floor(Math.random() * 10) + 1;
     const randomPrice = Math.floor(Math.random() * 1000) + 1;
 
     itemsForSale.push({
-      name: allItemsNames[randomIndex],
+      name: availableItems[randomIndex],
       qty: randomQty,
       price: randomPrice,
     });
 
-    // Remove selected element from the array to avoid duplicates
-    allItemsNames.splice(randomIndex, 1);
+    // Remove selected element from the availableItems array to avoid duplicates
+    availableItems.splice(randomIndex, 1);
   }
 
   return itemsForSale;

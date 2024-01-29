@@ -75,7 +75,7 @@ const ItemTable: React.FC<ItemTableProps> = ({
                 }}
               >
                 <TableCell component="th" scope="row" sx={{ ...color }}>
-                  {tradeType === "sell" &&
+                  {tradeType === "buy" &&
                   getYesterdaysItemPrice(item.name) !== null ? (
                     item.price > getYesterdaysItemPrice(item.name)! ? (
                       <ArrowUpwardIcon sx={{ color: "green", fontSize: 20 }} />
