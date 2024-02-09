@@ -8,10 +8,10 @@ import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCash,
-  removeItemFromPocket,
-  removeItemFromMarket,
-  addItemToPocket,
   addItemToMarket,
+  addItemToPocket,
+  removeItemFromMarket,
+  removeItemFromPocket,
   setInputValue,
   toggleOverlay,
 } from "../redux/actions";

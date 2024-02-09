@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux";
 import { AppState } from "../redux/reducers";
 import styles from "./Stats.module.css";
-import { useSelector } from "react-redux";
 
 export default function Stats() {
   const stats = useSelector((state: AppState) => state.stats);

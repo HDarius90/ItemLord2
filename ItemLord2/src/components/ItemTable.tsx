@@ -1,19 +1,19 @@
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItem, setTradeType, toggleOverlay } from "../redux/actions";
-import { Item } from "../types";
 import { AppState } from "../redux/reducers";
+import { Item } from "../types";
 
 interface ItemTableProps {
-  items: Item[]; // Assuming Item is the type for items
+  items: Item[];
   tradeType: string;
   title: string;
   size: "small" | "medium";
