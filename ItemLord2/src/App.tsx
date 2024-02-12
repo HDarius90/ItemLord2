@@ -6,7 +6,7 @@ import Pocket from "./components/Pocket";
 import Stats from "./components/Stats";
 import { stayDay, updateMarket } from "./redux/actions";
 
-function App() {
+function App ()  {
   const dispatch = useDispatch();
 
   const handleStay = () => {
@@ -20,7 +20,6 @@ function App() {
         <div className="mainCont">
           <section>
             <InfoPanel />
-
             <div className="btnGroup">
               <button>Shipping</button>
               <button>Finances</button>
@@ -28,7 +27,6 @@ function App() {
               <button onClick={handleStay}>Stay Here</button>
               <button>Fly Away</button>
             </div>
-
             <Stats />
           </section>
           <section>

@@ -1,12 +1,13 @@
 import styles from "./InfoPanel.module.css";
 import { notifications } from "../utils";
 
-const InfoPanel = () => {
+const InfoPanel: React.FC = () => {
   return (
     <>
       <div className={styles.infoBanner}>
         <h2>Information</h2>
       </div>
+
       <div className={styles.infos}>
         {notifications.map((message, index) => (
           <p key={index} style={{ color: message.color }}>

@@ -11,16 +11,11 @@
   background-color: black;
   width: 90rem;
 }
+
 section {
   width: 50%;
   height: 90%;
   margin-right: 2rem;
-}
-
-h2,
-h3,
-h4 {
-  color: white;
 }
 
 .btnGroup {
@@ -28,6 +23,7 @@ h4 {
   display: flex;
   justify-content: space-between;
 }
+
 .btnGroup > button {
   background-color: white;
   color: black;
