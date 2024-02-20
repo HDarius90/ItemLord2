@@ -1,3 +1,4 @@
+import { AppState, SearchItem } from "../interfaces";
 import { Item } from "../types";
 import { initPocket, generateItemsForSale } from "../utils";
 import {
@@ -40,33 +41,6 @@ type ActionType =
   | ReturnType<typeof addItemToPocket>
   | ReturnType<typeof addItemToMarket>;
 
-export interface AppState {
-  stats: {
-    location: string;
-    health: number;
-    day: number;
-    lastDay: number;
-    rank: string;
-    cash: number;
-    bank: number;
-    debt: number;
-  };
-  pocket: Item[]; // Assuming Item is a type you have defined
-  market: {
-    forSale: Item[];
-    yesterdaysForSale: Item[]; // Assuming Item is a type you have defined
-  };
-  selectedItem: Item;
-  tradeType: string;
-  pocketSize: number;
-  isOverlayOpen: boolean;
-  inputValue: number;
-}
-
-interface SearchItem {
-  name: string;
-  qty: number;
-}
 
 // reducers.js
 const initialState: AppState = {
