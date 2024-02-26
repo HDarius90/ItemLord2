@@ -1,4 +1,4 @@
-import { Item } from "../types";
+import { ActionType, Item } from "../types";
 import { initPocket, generateItemsForSale } from "../utils";
 import {
   ADD_CASH,
@@ -13,60 +13,7 @@ import {
   TOGGLE_OVERLAY,
   UPDATE_MARKET,
 } from "./ActionTypes";
-import {
-  addCash,
-  selectItem,
-  setInputValue,
-  setTradeType,
-  stayDay,
-  toggleOverlay,
-  updateMarket,
-  removeItemFromPocket,
-  removeItemFromMarket,
-  addItemToPocket,
-  addItemToMarket,
-} from "./actions";
-
-type ActionType =
-  | ReturnType<typeof stayDay>
-  | ReturnType<typeof addCash>
-  | ReturnType<typeof updateMarket>
-  | ReturnType<typeof selectItem>
-  | ReturnType<typeof toggleOverlay>
-  | ReturnType<typeof setTradeType>
-  | ReturnType<typeof setInputValue>
-  | ReturnType<typeof removeItemFromPocket>
-  | ReturnType<typeof removeItemFromMarket>
-  | ReturnType<typeof addItemToPocket>
-  | ReturnType<typeof addItemToMarket>;
-
-export interface AppState {
-  stats: {
-    location: string;
-    health: number;
-    day: number;
-    lastDay: number;
-    rank: string;
-    cash: number;
-    bank: number;
-    debt: number;
-  };
-  pocket: Item[]; // Assuming Item is a type you have defined
-  market: {
-    forSale: Item[];
-    yesterdaysForSale: Item[]; // Assuming Item is a type you have defined
-  };
-  selectedItem: Item;
-  tradeType: string;
-  pocketSize: number;
-  isOverlayOpen: boolean;
-  inputValue: number;
-}
-
-interface SearchItem {
-  name: string;
-  qty: number;
-}
+import { AppState, SearchItem } from "../interface";
 
 // reducers.js
 const initialState: AppState = {
@@ -165,7 +112,7 @@ function updateItemsQtyInMarket(
   return updatedItems;
 }
 
-const reducer = (state = initialState, action: ActionType) => {
+const reducer = (state = initialState, action: ActionType): AppState => {
   switch (action.type) {
     case STAY_DAY:
       return {
@@ -217,7 +164,7 @@ const reducer = (state = initialState, action: ActionType) => {
         market: {
           yesterdaysForSale: state.market.forSale,
           forSale: generateItemsForSale(),
-        }
+        },
       };
     case SELECT_ITEM:
       return {

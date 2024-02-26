@@ -15,8 +15,8 @@ import {
   setInputValue,
   toggleOverlay,
 } from "../redux/actions";
-import { AppState } from "../redux/reducers";
 import { capitalizeFirstLetter } from "../utils";
+import { AppState } from "../interface";
 
 export default function Overlay() {
   const market = useSelector((state: AppState) => state.market);

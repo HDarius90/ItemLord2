@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { AppState } from "../redux/reducers";
 import ItemTable from "./ItemTable";
 import Overlay from "./Overlay";
+import { AppState } from "../interface";
 
 export default function Market() {
   const market = useSelector((state: AppState) => state.market);

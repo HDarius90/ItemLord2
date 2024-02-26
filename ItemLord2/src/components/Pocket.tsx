@@ -1,8 +1,8 @@
 import { getAllItemsQty } from "../utils";
 import { useSelector } from "react-redux";
-import { AppState } from "../redux/reducers";
 import ItemTable from "./ItemTable";
 import Overlay from "./Overlay";
+import { AppState } from "../interface";
 
 export default function Pocket() {
   const pocket = useSelector((state: AppState) => state.pocket);

@@ -9,16 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItem, setTradeType, toggleOverlay } from "../redux/actions";
-import { AppState } from "../redux/reducers";
 import { Item } from "../types";
-
-interface ItemTableProps {
-  items: Item[];
-  tradeType: string;
-  title: string;
-  size: "small" | "medium";
-  ariaLabel: string;
-}
+import { AppState, ItemTableProps } from "../interface";
 
 const ItemTable: React.FC<ItemTableProps> = ({
   items,
