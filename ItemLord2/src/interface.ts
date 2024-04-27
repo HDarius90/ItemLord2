@@ -10,6 +10,7 @@ export interface AppState {
   isOverlayOpen: boolean;
   inputValue: number;
   notifications: Notification[];
+  inMarket: boolean;
 }
 
 interface Notification {

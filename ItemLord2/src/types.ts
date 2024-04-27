@@ -1,15 +1,16 @@
 import {
   addCash,
+  addItemToMarket,
+  addItemToPocket,
+  removeItemFromMarket,
+  removeItemFromPocket,
   selectItem,
   setInputValue,
   setTradeType,
   stayDay,
+  toggleMarket,
   toggleOverlay,
   updateMarket,
-  removeItemFromPocket,
-  removeItemFromMarket,
-  addItemToPocket,
-  addItemToMarket,
 } from "./redux/actions";
 
 export type Item = {
@@ -24,14 +25,15 @@ export type Notification = {
 };
 
 export type ActionType =
-  | ReturnType<typeof stayDay>
   | ReturnType<typeof addCash>
-  | ReturnType<typeof updateMarket>
-  | ReturnType<typeof selectItem>
-  | ReturnType<typeof toggleOverlay>
-  | ReturnType<typeof setTradeType>
-  | ReturnType<typeof setInputValue>
-  | ReturnType<typeof removeItemFromPocket>
-  | ReturnType<typeof removeItemFromMarket>
   | ReturnType<typeof addItemToPocket>
-  | ReturnType<typeof addItemToMarket>;
+  | ReturnType<typeof addItemToMarket>
+  | ReturnType<typeof removeItemFromMarket>
+  | ReturnType<typeof removeItemFromPocket>
+  | ReturnType<typeof selectItem>
+  | ReturnType<typeof setInputValue>
+  | ReturnType<typeof setTradeType>
+  | ReturnType<typeof stayDay>
+  | ReturnType<typeof toggleMarket>
+  | ReturnType<typeof toggleOverlay>
+  | ReturnType<typeof updateMarket>;

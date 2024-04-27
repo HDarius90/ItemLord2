@@ -1,14 +1,15 @@
 import { Item } from "../types";
 import {
   ADD_CASH,
-  REMOVE_ITEM_FROM_POCKET,
-  REMOVE_ITEM_FROM_MARKET,
-  ADD_ITEM_TO_POCKET,
   ADD_ITEM_TO_MARKET,
+  ADD_ITEM_TO_POCKET,
+  REMOVE_ITEM_FROM_MARKET,
+  REMOVE_ITEM_FROM_POCKET,
   SELECT_ITEM,
   SET_INPUT_VALUE,
   SET_TRADE_TYPE,
   STAY_DAY,
+  TOGGLE_MARKET,
   TOGGLE_OVERLAY,
   UPDATE_MARKET,
 } from "./ActionTypes";
@@ -45,6 +46,10 @@ export const addItemToMarket = (item: Item, qty: number) => ({
 
 export const updateMarket = () => ({
   type: UPDATE_MARKET,
+});
+
+export const toggleMarket = () => ({
+  type: TOGGLE_MARKET,
 });
 
 export const selectItem = (item: Item) => ({

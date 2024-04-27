@@ -1,19 +1,20 @@
+import { AppState, SearchItem } from "../interface";
 import { ActionType, Item } from "../types";
-import { initPocket, generateItemsForSale } from "../utils";
+import { generateItemsForSale, initPocket } from "../utils";
 import {
   ADD_CASH,
-  REMOVE_ITEM_FROM_POCKET,
-  REMOVE_ITEM_FROM_MARKET,
-  ADD_ITEM_TO_POCKET,
   ADD_ITEM_TO_MARKET,
+  ADD_ITEM_TO_POCKET,
+  REMOVE_ITEM_FROM_MARKET,
+  REMOVE_ITEM_FROM_POCKET,
   SELECT_ITEM,
   SET_INPUT_VALUE,
   SET_TRADE_TYPE,
   STAY_DAY,
+  TOGGLE_MARKET,
   TOGGLE_OVERLAY,
   UPDATE_MARKET,
 } from "./ActionTypes";
-import { AppState, SearchItem } from "../interface";
 
 // reducers.js
 const initialState: AppState = {
@@ -51,6 +52,7 @@ const initialState: AppState = {
       text: "This is the last day! Better sell all you can!",
     },
   ],
+  inMarket: false,
 };
 
 function removeFromPocket(arr: Item[], searchItem: SearchItem): Item[] {
@@ -124,7 +126,7 @@ function updateItemsQtyInMarket(
 
 const reducer = (state = initialState, action: ActionType): AppState => {
   switch (action.type) {
-    case STAY_DAY:
+    case STAY_DAY:     
       return {
         ...state,
         stats: { ...state.stats, day: ++state.stats.day },
@@ -185,6 +187,11 @@ const reducer = (state = initialState, action: ActionType): AppState => {
       return {
         ...state,
         isOverlayOpen: !state.isOverlayOpen,
+      };
+    case TOGGLE_MARKET:
+      return {
+        ...state,
+        inMarket: !state.inMarket,
       };
     case SET_TRADE_TYPE:
       return {
