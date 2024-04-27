@@ -9,6 +9,12 @@ export interface AppState {
   pocketSize: number;
   isOverlayOpen: boolean;
   inputValue: number;
+  notifications: Notification[];
+}
+
+interface Notification {
+  color: string;
+  text: string;
 }
 
 export interface SearchItem {

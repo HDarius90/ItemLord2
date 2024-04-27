@@ -1,5 +1,5 @@
 import allItemsNames from "./items";
-import { Item, Notification } from "./types";
+import { Item } from "./types";
 
 export const initPocket = (): Item[] => [
   { name: allItemsNames[0], qty: 1, price: 3000 },
@@ -32,17 +32,6 @@ export const generateItemsForSale = (): Item[] => {
 
   return itemsForSale;
 };
-
-export const notifications: Notification[] = [
-  {
-    color: "magenta",
-    text: "This is the last day! Better sell all you can!",
-  },
-  {
-    color: "red",
-    text: "This is the last day! Better sell all you can!",
-  },
-];
 
 // Returns the quantity of all items in pocket
 export const getAllItemsQty = (pocket: Item[]): number => {

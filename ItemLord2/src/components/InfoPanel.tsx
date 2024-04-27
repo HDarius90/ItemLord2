@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
+import { AppState } from "../interface";
 import styles from "./InfoPanel.module.css";
-import { notifications } from "../utils";
 
 const InfoPanel = () => {
+  const notifications = useSelector((state: AppState) => state.notifications);
   return (
     <>
       <div className={styles.infoBanner}>

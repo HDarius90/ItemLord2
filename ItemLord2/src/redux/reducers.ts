@@ -41,6 +41,16 @@ const initialState: AppState = {
   pocketSize: 20,
   isOverlayOpen: false,
   inputValue: 0,
+  notifications: [
+    {
+      color: "magenta",
+      text: "This is the last day! Better sell all you can!",
+    },
+    {
+      color: "red",
+      text: "This is the last day! Better sell all you can!",
+    },
+  ],
 };
 
 function removeFromPocket(arr: Item[], searchItem: SearchItem): Item[] {
