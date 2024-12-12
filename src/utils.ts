@@ -1,12 +1,13 @@
-import allItemsNames from "./items";
-import { Item, Notification } from "./types";
+import { Item, Notification } from './types';
+
+const allItemsNames = ['LSD', 'Cocain', 'Marihuanna', 'Crack'];
 
 export const initPocket = (): Item[] => [
   { name: allItemsNames[0], qty: 1, price: 3000 },
   { name: allItemsNames[1], qty: 2, price: 100 },
   { name: allItemsNames[2], qty: 1, price: 10 },
   { name: allItemsNames[3], qty: 3, price: 3500 },
-  { name: "Gold", qty: 2, price: 1000 },
+  { name: 'Gold', qty: 2, price: 1000 },
 ];
 
 export const generateItemsForSale = (): Item[] => {
@@ -35,12 +36,12 @@ export const generateItemsForSale = (): Item[] => {
 
 export const notifications: Notification[] = [
   {
-    color: "magenta",
-    text: "This is the last day! Better sell all you can!",
+    color: 'magenta',
+    text: 'This is the last day! Better sell all you can!',
   },
   {
-    color: "red",
-    text: "This is the last day! Better sell all you can!",
+    color: 'red',
+    text: 'This is the last day! Better sell all you can!',
   },
 ];
 

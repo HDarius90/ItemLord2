@@ -1,19 +1,19 @@
-import styles from "./InfoPanel.module.css";
-import { notifications } from "../utils";
+import { notifications } from '../../utils';
+import { InfoBanner, Infos } from './info-panel.styles';
 
 const InfoPanel = () => {
   return (
     <>
-      <div className={styles.infoBanner}>
+      <InfoBanner>
         <h2>Information</h2>
-      </div>
-      <div className={styles.infos}>
+      </InfoBanner>
+      <Infos>
         {notifications.map((message, index) => (
           <p key={index} style={{ color: message.color }}>
             {message.text}
           </p>
         ))}
-      </div>
+      </Infos>
     </>
   );
 };
